@@ -1,4 +1,4 @@
-package com.readystatesoftware.systemuitint.sample;
+package com.readystatesoftware.systembartint.sample;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.readystatesoftware.systemuitint.SystemUiTintManager;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class MatchActionBarActivity extends Activity { 
 
@@ -20,7 +20,7 @@ public class MatchActionBarActivity extends Activity {
         	setTranslucentStatus(true);
         }
 		
-		SystemUiTintManager tintManager = new SystemUiTintManager(this);
+		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setStatusBarTintResource(R.color.actionbar_bg);
 		

@@ -1,4 +1,4 @@
-package com.readystatesoftware.systemuitint.sample;
+package com.readystatesoftware.systembartint.sample;
 
 import static android.content.Intent.ACTION_MAIN;
 

@@ -1,4 +1,4 @@
-package com.readystatesoftware.systemuitint.sample;
+package com.readystatesoftware.systembartint.sample;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -8,11 +8,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.chiralcode.colorpicker.ColorPicker;
-import com.readystatesoftware.systemuitint.SystemUiTintManager;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ColorActivity extends Activity { 
 
-	private SystemUiTintManager mTintManager;
+	private SystemBarTintManager mTintManager;
 	private ColorPicker mColorPicker;
     private Button mButton;
 	
@@ -21,7 +21,7 @@ public class ColorActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color);
   
-        mTintManager = new SystemUiTintManager(this);
+        mTintManager = new SystemBarTintManager(this);
         mTintManager.setStatusBarTintEnabled(true);
         mTintManager.setNavigationBarTintEnabled(true);
 		

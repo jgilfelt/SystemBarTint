@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.readystatesoftware.systemuitint.sample"
+    package="com.readystatesoftware.systembartint.sample"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.SamplesListActivity"
+            android:name="com.readystatesoftware.systembartint.sample.SamplesListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,30 +23,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.DefaultActivity"
+            android:name="com.readystatesoftware.systembartint.sample.DefaultActivity"
             android:label="@string/default_example"
             android:theme="@style/FullBleedTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
+                <category android:name="com.readystatesoftware.systembartint.SAMPLE" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.MatchActionBarActivity"
+            android:name="com.readystatesoftware.systembartint.sample.MatchActionBarActivity"
             android:label="@string/match_actionbar_example"
             android:theme="@style/ActionBarTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
+                <category android:name="com.readystatesoftware.systembartint.SAMPLE" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.ColorActivity"
+            android:name="com.readystatesoftware.systembartint.sample.ColorActivity"
             android:label="@string/color_example"
             android:theme="@style/FullBleedTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
+                <category android:name="com.readystatesoftware.systembartint.SAMPLE" />
             </intent-filter>
         </activity>
     </application>

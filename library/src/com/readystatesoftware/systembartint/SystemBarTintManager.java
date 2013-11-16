@@ -1,4 +1,4 @@
-package com.readystatesoftware.systemuitint;
+package com.readystatesoftware.systembartint;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -18,7 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
 
-public class SystemUiTintManager {
+public class SystemBarTintManager {
 	
 	private static final String DEFAULT_TINT_COLOR = "#99000000";
 	
@@ -31,7 +31,7 @@ public class SystemUiTintManager {
 	private View mNavBarTintView;
 	
 	@TargetApi(19) 
-	public SystemUiTintManager(Activity activity) {
+	public SystemBarTintManager(Activity activity) {
 
 		mConfig = new SystemBarConfig(activity);
 		Window win = activity.getWindow();
