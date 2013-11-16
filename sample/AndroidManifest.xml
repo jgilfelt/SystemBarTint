@@ -31,6 +31,24 @@
                 <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.readystatesoftware.systemuitint.sample.MatchActionBarActivity"
+            android:label="@string/match_actionbar_example"
+            android:theme="@style/MatchActionBarTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.readystatesoftware.systemuitint.sample.ColorActivity"
+            android:label="@string/color_example"
+            android:theme="@style/FullBleedTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

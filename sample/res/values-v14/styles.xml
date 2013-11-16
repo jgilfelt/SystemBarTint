@@ -12,5 +12,14 @@
     <style name="FullBleedTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- API 14 theme customizations can go here. -->
     </style>
+    
+    <style name="MatchActionBarTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- API 14 theme customizations can go here. -->
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+    </style>
+    
+    <style name="ActionBarStyle" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/actionbar_bg</item>
+    </style>
 
 </resources>
