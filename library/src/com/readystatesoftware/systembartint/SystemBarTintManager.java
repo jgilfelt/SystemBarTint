@@ -264,8 +264,8 @@ public class SystemBarTintManager {
 		mStatusBarTintView = new View(context);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getStatusBarHeight());
 		params.gravity = Gravity.TOP;
-		if (mConfig.hasNavigtionBar() && !mConfig.isNavigationAtBottom()) {
-			params.rightMargin = mConfig.getNavigationBarHeight();
+		if (mNavBarAvailable && !mConfig.isNavigationAtBottom()) {
+			params.rightMargin = mConfig.getNavigationBarWidth();
 		}
 		mStatusBarTintView.setLayoutParams(params);
 		mStatusBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
@@ -280,7 +280,7 @@ public class SystemBarTintManager {
 			params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getNavigationBarHeight());
 			params.gravity = Gravity.BOTTOM;
 		} else {
-			params = new LayoutParams(mConfig.getNavigationBarHeight(), LayoutParams.MATCH_PARENT);
+			params = new LayoutParams(mConfig.getNavigationBarWidth(), LayoutParams.MATCH_PARENT);
 			params.gravity = Gravity.RIGHT;
 		}
 		mNavBarTintView.setLayoutParams(params);
@@ -299,20 +299,24 @@ public class SystemBarTintManager {
 		private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
 		private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
 		private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
+		private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
 
 		private int mStatusBarHeight;
 		private int mActionBarHeight;
 		private boolean mHasNavigationBar;
 		private int mNavigationBarHeight;
+		private int mNavigationBarWidth;
 		private boolean mInPortrait;
 		private float mSmallestWidthDp;
 
 		private SystemBarConfig(Activity activity) {
-			mInPortrait = (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+			Resources res = activity.getResources();
+			mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 			mSmallestWidthDp = getSmallestWidthDp(activity);
-			mStatusBarHeight = getStatusBarHeight(activity);
+			mStatusBarHeight = getInternalDimensionSize(res, STATUS_BAR_HEIGHT_RES_NAME);
 			mActionBarHeight = getActionBarHeight(activity);
 			mNavigationBarHeight = getNavigationBarHeight(activity);
+			mNavigationBarWidth = getNavigationBarWidth(activity);
 			mHasNavigationBar = (mNavigationBarHeight > 0);
 		}
 
@@ -327,19 +331,9 @@ public class SystemBarTintManager {
 			return result;
 		}
 
-		private int getStatusBarHeight(Context context) {
-			Resources r = context.getResources();
-			int result = 0;
-			int resourceId = r.getIdentifier(STATUS_BAR_HEIGHT_RES_NAME, "dimen", "android");
-			if (resourceId > 0) {
-				result = r.getDimensionPixelSize(resourceId);
-			}
-			return result;
-		}
-
 		@TargetApi(14) 
 		private int getNavigationBarHeight(Context context) {
-			Resources r = context.getResources();
+			Resources res = context.getResources();
 			int result = 0;
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 				if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
@@ -349,11 +343,29 @@ public class SystemBarTintManager {
 					} else {
 						key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
 					}
-					int resourceId = r.getIdentifier(key, "dimen", "android");
-					if (resourceId > 0) {
-						result = r.getDimensionPixelSize(resourceId);
-					}
+					return getInternalDimensionSize(res, key);
 				}
+			}
+			return result;
+		}
+		
+		@TargetApi(14) 
+		private int getNavigationBarWidth(Context context) {
+			Resources res = context.getResources();
+			int result = 0;
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+					return getInternalDimensionSize(res, NAV_BAR_WIDTH_RES_NAME);
+				}
+			}
+			return result;
+		}
+			
+		private int getInternalDimensionSize(Resources res, String key) {
+			int result = 0;
+			int resourceId = res.getIdentifier(key, "dimen", "android");
+			if (resourceId > 0) {
+				result = res.getDimensionPixelSize(resourceId);
 			}
 			return result;
 		}
@@ -419,6 +431,16 @@ public class SystemBarTintManager {
 		public int getNavigationBarHeight() {
 			return mNavigationBarHeight;
 		}
+		
+		/**
+		 * Get the width of the system navigation bar when it is placed vertically on the screen.
+		 * 
+		 * @return The width of the navigation bar (in pixels). If the device does not have
+		 * soft navigation keys, this will always return 0.
+		 */
+		public int getNavigationBarWidth() {
+			return mNavigationBarWidth;
+		}
 
 		/**
 		 * Get the layout offset for any system UI that appears at the top of the screen.
@@ -450,7 +472,7 @@ public class SystemBarTintManager {
 		 */
 		public int getPixelOffsetRight() {
 			if (!isNavigationAtBottom()) {
-				return mNavigationBarHeight;
+				return mNavigationBarWidth;
 			} else {
 				return 0;
 			}
