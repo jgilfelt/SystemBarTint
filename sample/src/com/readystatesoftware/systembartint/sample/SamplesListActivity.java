@@ -49,7 +49,7 @@ public class SamplesListActivity extends ListActivity {
 			mIntents.clear();
 
 			final Intent mainIntent = new Intent(ACTION_MAIN, null);
-			mainIntent.addCategory("com.readystatesoftware.systemuitint.SAMPLE");
+			mainIntent.addCategory("com.readystatesoftware.systembartint.SAMPLE");
 
 			PackageManager pm = getPackageManager();
 			final List<ResolveInfo> matches = pm.queryIntentActivities(
