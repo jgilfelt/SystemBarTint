@@ -443,21 +443,21 @@ public class SystemBarTintManager {
 		}
 
 		/**
-		 * Get the layout offset for any system UI that appears at the top of the screen.
+		 * Get the layout inset for any system UI that appears at the top of the screen.
 		 * 
 		 * @param withActionBar True to include the height of the action bar, False otherwise.
-		 * @return The layout offset (in pixels).
+		 * @return The layout inset (in pixels).
 		 */
-		public int getPixelOffsetTop(boolean withActionBar) {
+		public int getPixelInsetTop(boolean withActionBar) {
 			return mStatusBarHeight + (withActionBar ? mActionBarHeight : 0);
 		}
 
 		/**
-		 * Get the layout offset for any system UI that appears at the bottom of the screen.
+		 * Get the layout inset for any system UI that appears at the bottom of the screen.
 		 * 
-		 * @return The layout offset (in pixels).
+		 * @return The layout inset (in pixels).
 		 */
-		public int getPixelOffestBottom() {
+		public int getPixelInsetBottom() {
 			if (isNavigationAtBottom()) {
 				return mNavigationBarHeight;
 			} else {
@@ -466,11 +466,11 @@ public class SystemBarTintManager {
 		}
 
 		/**
-		 * Get the layout offset for any system UI that appears at the right of the screen.
+		 * Get the layout inset for any system UI that appears at the right of the screen.
 		 * 
-		 * @return The layout offset (in pixels).
+		 * @return The layout inset (in pixels).
 		 */
-		public int getPixelOffsetRight() {
+		public int getPixelInsetRight() {
 			if (!isNavigationAtBottom()) {
 				return mNavigationBarWidth;
 			} else {
