@@ -1,6 +1,6 @@
 package com.readystatesoftware.systemuitint;
 
-import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -30,7 +30,7 @@ public class SystemUiTintManager {
 	private View mStatusBarTintView;
 	private View mNavBarTintView;
 	
-	@SuppressLint("InlinedApi")
+	@TargetApi(19) 
 	public SystemUiTintManager(Activity activity) {
 
 		mConfig = new SystemBarConfig(activity);
@@ -187,7 +187,7 @@ public class SystemUiTintManager {
 			mHasNavigationBar = (mNavigationBarHeight > 0);
 		}
 		
-		@SuppressLint("InlinedApi")
+		@TargetApi(14) 
 		private int getActionBarHeight(Context context) {
 			int result = 0;
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -208,7 +208,7 @@ public class SystemUiTintManager {
 			return result;
 		}
 
-		@SuppressLint("NewApi")
+		@TargetApi(14) 
 		private int getNavigationBarHeight(Context context) {
 			Resources r = context.getResources();
 			int result = 0;

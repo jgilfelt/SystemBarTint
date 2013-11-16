@@ -2,21 +2,23 @@ package com.readystatesoftware.systemuitint.sample;
 
 import com.readystatesoftware.systemuitint.SystemUiTintManager;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity { 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        setTranslucentStatus(true);
-		setTranslucentNavigation(true);
+        //setTranslucentStatus(true);
+		//setTranslucentNavigation(true);
 
 		SystemUiTintManager tintManager = new SystemUiTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
@@ -26,6 +28,7 @@ public class MainActivity extends Activity {
 		
     }
     
+    @TargetApi(19) 
     private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
@@ -38,6 +41,7 @@ public class MainActivity extends Activity {
 		win.setAttributes(winParams);
 	}
 
+	@TargetApi(19) 
 	private void setTranslucentNavigation(boolean on) {
 		Window win = getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
