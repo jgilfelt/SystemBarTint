@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
-    tools:context=".FullBleedActivity" >
+    tools:context=".DefaultActivity" >
 
     <TextView
         android:layout_width="wrap_content"

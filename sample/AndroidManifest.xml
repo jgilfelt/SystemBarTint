@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.FullBleedActivity"
+            android:name="com.readystatesoftware.systemuitint.sample.DefaultActivity"
             android:label="@string/default_example"
             android:theme="@style/FullBleedTheme" >
             <intent-filter>
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.DefaultActivity"
+            android:name="com.readystatesoftware.systemuitint.sample.ColorActivity"
             android:label="@string/color_example"
             android:theme="@style/FullBleedTheme" >
             <intent-filter>
