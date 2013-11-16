@@ -1,5 +1,6 @@
 package com.readystatesoftware.systembartint;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -20,7 +22,7 @@ import android.widget.FrameLayout.LayoutParams;
 
 public class SystemBarTintManager {
 	
-	private static final String DEFAULT_TINT_COLOR = "#99000000";
+	public static final int DEFAULT_TINT_COLOR = Color.parseColor("#99000000");
 	
 	private SystemBarConfig mConfig;
 	private boolean mStatusBarAvailable;
@@ -154,17 +156,24 @@ public class SystemBarTintManager {
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getStatusBarHeight());
 		params.gravity = Gravity.TOP;
 		mStatusBarTintView.setLayoutParams(params);
-		mStatusBarTintView.setBackgroundColor(Color.parseColor(DEFAULT_TINT_COLOR));
+		mStatusBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
 		mStatusBarTintView.setVisibility(View.GONE);
 		decorViewGroup.addView(mStatusBarTintView);
 	}
 	
 	private void setupNavBarView(Context context, ViewGroup decorViewGroup) {
 		mNavBarTintView = new View(context);
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getNavigationBarHeight());
-		params.gravity = Gravity.BOTTOM;
+		LayoutParams params;
+		if (mConfig.isNavigationAtBottom()) {
+			params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getNavigationBarHeight());
+			params.gravity = Gravity.BOTTOM;
+		} else {
+			params = new LayoutParams(mConfig.getNavigationBarHeight(), LayoutParams.MATCH_PARENT);
+			params.gravity = Gravity.RIGHT;
+			params.topMargin = mConfig.getStatusBarHeight();
+		}
 		mNavBarTintView.setLayoutParams(params);
-		mNavBarTintView.setBackgroundColor(Color.parseColor(DEFAULT_TINT_COLOR));
+		mNavBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
 		mNavBarTintView.setVisibility(View.GONE);
 		decorViewGroup.addView(mNavBarTintView);
 	}
@@ -179,11 +188,15 @@ public class SystemBarTintManager {
 		private int mActionBarHeight;
 		private boolean mHasNavigationBar;
 		private int mNavigationBarHeight;
+		private boolean mInPortrait;
+		private float mSmallestWidthDp;
 		
-		private SystemBarConfig(Context context) {
-			mStatusBarHeight = getStatusBarHeight(context);
-			mActionBarHeight = getActionBarHeight(context);
-			mNavigationBarHeight = getNavigationBarHeight(context);
+		private SystemBarConfig(Activity activity) {
+			mInPortrait = (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+			mSmallestWidthDp = getSmallestWidthDp(activity);
+			mStatusBarHeight = getStatusBarHeight(activity);
+			mActionBarHeight = getActionBarHeight(activity);
+			mNavigationBarHeight = getNavigationBarHeight(activity);
 			mHasNavigationBar = (mNavigationBarHeight > 0);
 		}
 		
@@ -215,7 +228,7 @@ public class SystemBarTintManager {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 				if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
 					String key;
-					if(r.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+					if (mInPortrait) {
 						key = NAV_BAR_HEIGHT_RES_NAME;
 					} else {
 						key = NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME;
@@ -228,7 +241,25 @@ public class SystemBarTintManager {
 			}
 			return result;
 		}
+		
+		@SuppressLint("NewApi")
+		private float getSmallestWidthDp(Activity activity) {
+			DisplayMetrics metrics = new DisplayMetrics();
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+				activity.getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+			} else {
+				// TODO this is not correct but we don't really care pre-kitkat
+				activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+			}
+			float widthDp = metrics.widthPixels / metrics.density;
+			float heightDp = metrics.heightPixels / metrics.density;
+			return Math.min(widthDp, heightDp);
+		}
 
+		public boolean isNavigationAtBottom() {
+			return (mSmallestWidthDp > 600 || mInPortrait);
+		}
+		
 		public int getStatusBarHeight() {
 			return mStatusBarHeight;
 		}
@@ -243,6 +274,26 @@ public class SystemBarTintManager {
 
 		public int getNavigationBarHeight() {
 			return mNavigationBarHeight;
+		}
+		
+		public int getPixelOffsetTop(boolean withActionBar) {
+			return mStatusBarHeight + (withActionBar ? mActionBarHeight : 0);
+		}
+		
+		public int getPixelOffestBottom() {
+			if (isNavigationAtBottom()) {
+				return mNavigationBarHeight;
+			} else {
+				return 0;
+			}
+		}
+		
+		public int getPixelOffsetRight() {
+			if (!isNavigationAtBottom()) {
+				return mNavigationBarHeight;
+			} else {
+				return 0;
+			}
 		}
 		
 	}
