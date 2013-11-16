@@ -264,6 +264,9 @@ public class SystemBarTintManager {
 		mStatusBarTintView = new View(context);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getStatusBarHeight());
 		params.gravity = Gravity.TOP;
+		if (mConfig.hasNavigtionBar() && !mConfig.isNavigationAtBottom()) {
+			params.rightMargin = mConfig.getNavigationBarHeight();
+		}
 		mStatusBarTintView.setLayoutParams(params);
 		mStatusBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
 		mStatusBarTintView.setVisibility(View.GONE);
@@ -279,7 +282,6 @@ public class SystemBarTintManager {
 		} else {
 			params = new LayoutParams(mConfig.getNavigationBarHeight(), LayoutParams.MATCH_PARENT);
 			params.gravity = Gravity.RIGHT;
-			params.topMargin = mConfig.getStatusBarHeight();
 		}
 		mNavBarTintView.setLayoutParams(params);
 		mNavBarTintView.setBackgroundColor(DEFAULT_TINT_COLOR);
@@ -375,7 +377,7 @@ public class SystemBarTintManager {
 		 * device configuration? A navigation bar may appear on the right side of 
 		 * the screen in certain configurations.
 		 * 
-		 * @return True if navigation should apper at the bottom of the screen, False otherwise.
+		 * @return True if navigation should appear at the bottom of the screen, False otherwise.
 		 */
 		public boolean isNavigationAtBottom() {
 			return (mSmallestWidthDp > 600 || mInPortrait);
