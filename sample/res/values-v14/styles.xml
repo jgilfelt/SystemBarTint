@@ -13,7 +13,7 @@
         <!-- API 14 theme customizations can go here. -->
     </style>
     
-    <style name="MatchActionBarTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="ActionBarTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- API 14 theme customizations can go here. -->
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
     </style>

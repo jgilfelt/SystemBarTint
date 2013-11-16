@@ -22,7 +22,7 @@ public class MatchActionBarActivity extends Activity {
 		
 		SystemUiTintManager tintManager = new SystemUiTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
-		tintManager.setStatusBarTintResource(R.color.statusbar_bg);
+		tintManager.setStatusBarTintResource(R.color.actionbar_bg);
 		
     }
     
