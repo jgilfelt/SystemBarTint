@@ -13,13 +13,22 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
         <activity
-            android:name="com.readystatesoftware.systemuitint.sample.MainActivity"
+            android:name="com.readystatesoftware.systemuitint.sample.SamplesListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.readystatesoftware.systemuitint.sample.FullBleedActivity"
+            android:label="@string/full_bleed_example"
+            android:theme="@style/FullBleedTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.readystatesoftware.systemuitint.SAMPLE" />
             </intent-filter>
         </activity>
     </application>

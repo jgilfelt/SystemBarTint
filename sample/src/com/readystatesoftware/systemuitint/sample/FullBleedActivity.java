@@ -10,12 +10,12 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity { 
+public class FullBleedActivity extends Activity { 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_full_bleed);
         
         //setTranslucentStatus(true);
 		//setTranslucentNavigation(true);
