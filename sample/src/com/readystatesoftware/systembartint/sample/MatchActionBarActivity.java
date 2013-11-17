@@ -38,7 +38,7 @@ public class MatchActionBarActivity extends Activity {
 
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
-		tintManager.setStatusBarTintResource(R.color.actionbar_bg);
+		tintManager.setStatusBarTintResource(R.color.statusbar_bg);
 
 	}
 
