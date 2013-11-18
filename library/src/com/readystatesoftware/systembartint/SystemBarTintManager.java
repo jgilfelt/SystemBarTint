@@ -66,7 +66,6 @@ public class SystemBarTintManager {
 	@TargetApi(19) 
 	public SystemBarTintManager(Activity activity) {
 
-		mConfig = new SystemBarConfig(activity);
 		Window win = activity.getWindow();
 		ViewGroup decorViewGroup = (ViewGroup) win.getDecorView();
 
@@ -88,12 +87,14 @@ public class SystemBarTintManager {
 			if ((winParams.flags & bits) != 0) {
 				mNavBarAvailable = true;
 			}
-
-			// device might not have virtual navigation keys
-			if (!mConfig.hasNavigtionBar()) {
-				mNavBarAvailable = false;
-			}
 		}
+		
+		mConfig = new SystemBarConfig(activity, mStatusBarAvailable, mNavBarAvailable);
+		// device might not have virtual navigation keys
+		if (!mConfig.hasNavigtionBar()) {
+			mNavBarAvailable = false;
+		}
+		
 		if (mStatusBarAvailable) {
 			setupStatusBarView(activity, decorViewGroup);
 		}
@@ -301,6 +302,8 @@ public class SystemBarTintManager {
 		private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
 		private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
 
+		private boolean mTranslucentStatusBar;
+		private boolean mTranslucentNavBar;
 		private int mStatusBarHeight;
 		private int mActionBarHeight;
 		private boolean mHasNavigationBar;
@@ -309,7 +312,7 @@ public class SystemBarTintManager {
 		private boolean mInPortrait;
 		private float mSmallestWidthDp;
 
-		private SystemBarConfig(Activity activity) {
+		private SystemBarConfig(Activity activity, boolean translucentStatusBar, boolean traslucentNavBar) {
 			Resources res = activity.getResources();
 			mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 			mSmallestWidthDp = getSmallestWidthDp(activity);
@@ -318,6 +321,8 @@ public class SystemBarTintManager {
 			mNavigationBarHeight = getNavigationBarHeight(activity);
 			mNavigationBarWidth = getNavigationBarWidth(activity);
 			mHasNavigationBar = (mNavigationBarHeight > 0);
+			mTranslucentStatusBar = translucentStatusBar;
+			mTranslucentNavBar = traslucentNavBar;
 		}
 
 		@TargetApi(14) 
@@ -449,7 +454,7 @@ public class SystemBarTintManager {
 		 * @return The layout inset (in pixels).
 		 */
 		public int getPixelInsetTop(boolean withActionBar) {
-			return mStatusBarHeight + (withActionBar ? mActionBarHeight : 0);
+			return (mTranslucentStatusBar ? mStatusBarHeight : 0) + (withActionBar ? mActionBarHeight : 0);
 		}
 
 		/**
@@ -458,7 +463,7 @@ public class SystemBarTintManager {
 		 * @return The layout inset (in pixels).
 		 */
 		public int getPixelInsetBottom() {
-			if (isNavigationAtBottom()) {
+			if (mTranslucentNavBar && isNavigationAtBottom()) {
 				return mNavigationBarHeight;
 			} else {
 				return 0;
@@ -471,7 +476,7 @@ public class SystemBarTintManager {
 		 * @return The layout inset (in pixels).
 		 */
 		public int getPixelInsetRight() {
-			if (!isNavigationAtBottom()) {
+			if (mTranslucentNavBar && !isNavigationAtBottom()) {
 				return mNavigationBarWidth;
 			} else {
 				return 0;
