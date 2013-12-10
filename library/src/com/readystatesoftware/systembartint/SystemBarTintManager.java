@@ -397,7 +397,7 @@ public class SystemBarTintManager {
 		 * @return True if navigation should appear at the bottom of the screen, False otherwise.
 		 */
 		public boolean isNavigationAtBottom() {
-			return (mSmallestWidthDp > 600 || mInPortrait);
+			return (mSmallestWidthDp >= 600 || mInPortrait);
 		}
 
 		/**
