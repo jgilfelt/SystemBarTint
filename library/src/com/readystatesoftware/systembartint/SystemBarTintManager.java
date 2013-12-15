@@ -48,7 +48,7 @@ public class SystemBarTintManager {
 	 */
 	public static final int DEFAULT_TINT_COLOR = Color.parseColor("#99000000");
 
-	private SystemBarConfig mConfig;
+	private final SystemBarConfig mConfig;
 	private boolean mStatusBarAvailable;
 	private boolean mNavBarAvailable;
 	private boolean mStatusBarTintEnabled;
@@ -306,15 +306,15 @@ public class SystemBarTintManager {
 		private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
 		private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
 
-		private boolean mTranslucentStatusBar;
-		private boolean mTranslucentNavBar;
-		private int mStatusBarHeight;
-		private int mActionBarHeight;
-		private boolean mHasNavigationBar;
-		private int mNavigationBarHeight;
-		private int mNavigationBarWidth;
-		private boolean mInPortrait;
-		private float mSmallestWidthDp;
+		private final boolean mTranslucentStatusBar;
+		private final boolean mTranslucentNavBar;
+		private final int mStatusBarHeight;
+		private final int mActionBarHeight;
+		private final boolean mHasNavigationBar;
+		private final int mNavigationBarHeight;
+		private final int mNavigationBarWidth;
+		private final boolean mInPortrait;
+		private final float mSmallestWidthDp;
 
 		private SystemBarConfig(Activity activity, boolean translucentStatusBar, boolean traslucentNavBar) {
 			Resources res = activity.getResources();
