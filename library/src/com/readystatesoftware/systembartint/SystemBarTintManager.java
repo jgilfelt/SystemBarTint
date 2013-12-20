@@ -171,6 +171,16 @@ public class SystemBarTintManager {
 	}
 
 	/**
+	* Apply the specified alpha to all system UI bars.
+	*
+	* @param alpha The alpha to use
+	*/
+	public void setTintAlpha(float alpha) {
+		setStatusBarAlpha(alpha);
+		setNavigationBarAlpha(alpha);
+	}
+
+	/**
 	 * Apply the specified color tint to the system status bar.
 	 * 
 	 * @param color The color of the background tint.
@@ -205,6 +215,17 @@ public class SystemBarTintManager {
 	}
 
 	/**
+	* Apply the specified alpha to the system status bar.
+	*
+	* @param alpha The alpha to use
+	*/
+	public void setStatusBarAlpha(float alpha) {
+		if (mStatusBarAvailable) {
+			mStatusBarTintView.setAlpha(alpha);
+		}
+	}
+
+	/**
 	 * Apply the specified color tint to the system navigation bar.
 	 * 
 	 * @param color The color of the background tint.
@@ -235,6 +256,17 @@ public class SystemBarTintManager {
 	public void setNavigationBarTintDrawable(Drawable drawable) {
 		if (mNavBarAvailable) {
 			mNavBarTintView.setBackgroundDrawable(drawable);
+		}
+	}
+
+	/**
+	* Apply the specified alpha to the system navigation bar.
+	*
+	* @param alpha The alpha to use
+	*/
+	public void setNavigationBarAlpha(float alpha) {
+		if (mNavBarAvailable) {
+			mNavBarTintView.setAlpha(alpha);
 		}
 	}
 
