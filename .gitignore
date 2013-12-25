@@ -7,3 +7,5 @@ bin/
 gen/
 *.idea
 *.iml
+build/
+.gradle
