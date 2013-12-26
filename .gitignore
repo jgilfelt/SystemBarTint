@@ -9,3 +9,5 @@ gen/
 *.iml
 build/
 .gradle
+gradle
+*.properties
