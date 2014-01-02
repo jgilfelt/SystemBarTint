@@ -46,7 +46,7 @@ public class SystemBarTintManager {
 	/**
 	 * The default system bar tint color value.
 	 */
-	public static final int DEFAULT_TINT_COLOR = Color.parseColor("#99000000");
+	public static final int DEFAULT_TINT_COLOR = 0x99000000;
 
 	private final SystemBarConfig mConfig;
 	private boolean mStatusBarAvailable;
