@@ -219,8 +219,9 @@ public class SystemBarTintManager {
 	*
 	* @param alpha The alpha to use
 	*/
+    @TargetApi(11)
 	public void setStatusBarAlpha(float alpha) {
-		if (mStatusBarAvailable) {
+		if (mStatusBarAvailable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			mStatusBarTintView.setAlpha(alpha);
 		}
 	}
@@ -264,8 +265,9 @@ public class SystemBarTintManager {
 	*
 	* @param alpha The alpha to use
 	*/
+    @TargetApi(11)
 	public void setNavigationBarAlpha(float alpha) {
-		if (mNavBarAvailable) {
+		if (mNavBarAvailable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			mNavBarTintView.setAlpha(alpha);
 		}
 	}
