@@ -1,2 +1,2 @@
-include ':systembartint'
+include ':library'
 include ':sample'
