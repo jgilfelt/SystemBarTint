@@ -43,8 +43,7 @@ tintManager.setNavigationBarTintResource(R.drawable.my_tint);
 tintManager.setStatusBarTintDrawable(MyDrawable);
 ```
 
-SystemBarConfig
----------------
+### SystemBarConfig
 
 Developers should not need to concern themselves with the size or positioning of the system UI. Use `android:fitsSystemWindows="true"` in conjunction with `android:clipToPadding="false"` to achieve the optimal layout for full bleed content screens that need to be padded within the system UI bounds. However, certain elements like the `GoogleMap` provided by Google Play Services may force you to determine the pixel insets for the system bars in order to provide the appropriate layout effect.
 
@@ -55,12 +54,16 @@ SystemBarConfig config = tintManager.getConfig();
 map.setPadding(0, config.getPixelInsetTop(), config.getPixelInsetRight(), config.getPixelInsetBottom());
 ```
 
-Download
---------
+Setup
+-----
 
-Download the [JAR](https://raw.github.com/jgilfelt/SystemBarTint/master/jar/SystemBarTint.jar) and include it in your `libs` folder.
+Download and include the [JAR][1] in your project, or add the dependency in your `build.gradle`:
 
-*TODO*: Maven etc.
+```groovy
+dependencies {
+    compile 'com.readystatesoftware.systembartint:systembartint:+'
+}
+```
 
 The repository includes a sample app which you can also download from Google Play:
 
@@ -92,3 +95,5 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+ [1]: http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=com.readystatesoftware.systembartint&a=systembartint&v=LATEST&&c=jar
