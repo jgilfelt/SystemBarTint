@@ -65,7 +65,7 @@ dependencies {
 }
 ```
 
-The repository includes a sample app which you can also download from Google Play:
+This repository also includes a sample app which you can download from Google Play:
 
 <a href="https://play.google.com/store/apps/details?id=com.readystatesoftware.systembartint.sample">
   <img alt="Android app on Google Play"
