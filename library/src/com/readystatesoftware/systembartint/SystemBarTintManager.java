@@ -338,6 +338,7 @@ public class SystemBarTintManager {
         private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
         private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
         private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
+        private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
 
         private final boolean mTranslucentStatusBar;
         private final boolean mTranslucentNavBar;
@@ -378,7 +379,10 @@ public class SystemBarTintManager {
             Resources res = context.getResources();
             int result = 0;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+                int resourceId = res.getIdentifier(SHOW_NAV_BAR_RES_NAME, "bool", "android");
+                boolean hasNavBar = (resourceId > 0) ? res.getBoolean(resourceId) : false;
+                //if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+                if (hasNavBar) {
                     String key;
                     if (mInPortrait) {
                         key = NAV_BAR_HEIGHT_RES_NAME;
