@@ -29,7 +29,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -379,10 +378,7 @@ public class SystemBarTintManager {
             Resources res = context.getResources();
             int result = 0;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                int resourceId = res.getIdentifier(SHOW_NAV_BAR_RES_NAME, "bool", "android");
-                boolean hasNavBar = (resourceId > 0) ? res.getBoolean(resourceId) : false;
-                //if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
-                if (hasNavBar) {
+                if (getInternalBoolean(res, SHOW_NAV_BAR_RES_NAME)) {
                     String key;
                     if (mInPortrait) {
                         key = NAV_BAR_HEIGHT_RES_NAME;
@@ -400,11 +396,16 @@ public class SystemBarTintManager {
             Resources res = context.getResources();
             int result = 0;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                if (!ViewConfiguration.get(context).hasPermanentMenuKey()) {
+                if (getInternalBoolean(res, SHOW_NAV_BAR_RES_NAME)) {
                     return getInternalDimensionSize(res, NAV_BAR_WIDTH_RES_NAME);
                 }
             }
             return result;
+        }
+
+        private boolean getInternalBoolean(Resources res, String key) {
+            int resourceId = res.getIdentifier(key, "bool", "android");
+            return (resourceId > 0) ? res.getBoolean(resourceId) : false;
         }
 
         private int getInternalDimensionSize(Resources res, String key) {
