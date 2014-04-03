@@ -22,4 +22,9 @@
         <item name="android:background">@color/actionbar_bg</item>
     </style>
 
+    <style name="TestActionBarTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- API 14 theme customizations can go here. -->
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
 </resources>

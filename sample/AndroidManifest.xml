@@ -49,6 +49,18 @@
                 <category android:name="com.readystatesoftware.systembartint.SAMPLE" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.readystatesoftware.systembartint.sample.TestViewInsetsActivity"
+            android:label="Test"
+            android:theme="@style/TestActionBarTheme"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.readystatesoftware.systembartint.SAMPLE" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

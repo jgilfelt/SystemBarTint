@@ -1,0 +1,20 @@
+<com.readystatesoftware.systembartint.sample.InsetsView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:text="@string/ipsum" />
+
+    </ScrollView>
+
+</com.readystatesoftware.systembartint.sample.InsetsView>
