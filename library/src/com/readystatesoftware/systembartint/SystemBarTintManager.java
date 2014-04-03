@@ -29,10 +29,13 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
+
+import java.lang.reflect.Method;
 
 /**
  * Class to manage status and navigation bar tint effects when using KitKat 
@@ -41,10 +44,29 @@ import android.widget.FrameLayout.LayoutParams;
  */
 public class SystemBarTintManager {
 
+    static {
+        // Android allows a system property to override the presence of the navigation bar.
+        // Used by the emulator.
+        // See https://github.com/android/platform_frameworks_base/blob/master/policy/src/com/android/internal/policy/impl/PhoneWindowManager.java#L1076
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                Class c = Class.forName("android.os.SystemProperties");
+                Method m = c.getDeclaredMethod("get", String.class);
+                m.setAccessible(true);
+                sNavBarOverride = (String) m.invoke(null, "qemu.hw.mainkeys");
+            } catch (Throwable e) {
+                sNavBarOverride = null;
+            }
+        }
+    }
+
+
     /**
      * The default system bar tint color value.
      */
     public static final int DEFAULT_TINT_COLOR = 0x99000000;
+
+    private static String sNavBarOverride;
 
     private final SystemBarConfig mConfig;
     private boolean mStatusBarAvailable;
@@ -378,7 +400,7 @@ public class SystemBarTintManager {
             Resources res = context.getResources();
             int result = 0;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                if (getInternalBoolean(res, SHOW_NAV_BAR_RES_NAME)) {
+                if (hasNavBar(context)) {
                     String key;
                     if (mInPortrait) {
                         key = NAV_BAR_HEIGHT_RES_NAME;
@@ -396,16 +418,29 @@ public class SystemBarTintManager {
             Resources res = context.getResources();
             int result = 0;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                if (getInternalBoolean(res, SHOW_NAV_BAR_RES_NAME)) {
+                if (hasNavBar(context)) {
                     return getInternalDimensionSize(res, NAV_BAR_WIDTH_RES_NAME);
                 }
             }
             return result;
         }
 
-        private boolean getInternalBoolean(Resources res, String key) {
-            int resourceId = res.getIdentifier(key, "bool", "android");
-            return (resourceId > 0) ? res.getBoolean(resourceId) : false;
+        @TargetApi(14)
+        private boolean hasNavBar(Context context) {
+            Resources res = context.getResources();
+            int resourceId = res.getIdentifier(SHOW_NAV_BAR_RES_NAME, "bool", "android");
+            if (resourceId != 0) {
+                boolean hasNav = res.getBoolean(resourceId);
+                // check override flag (see static block)
+                if ("1".equals(sNavBarOverride)) {
+                    hasNav = false;
+                } else if ("0".equals(sNavBarOverride)) {
+                    hasNav = true;
+                }
+                return hasNav;
+            } else { // fallback
+                return !ViewConfiguration.get(context).hasPermanentMenuKey();
+            }
         }
 
         private int getInternalDimensionSize(Resources res, String key) {
