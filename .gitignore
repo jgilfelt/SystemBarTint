@@ -5,6 +5,7 @@ local.properties
 *.settings/
 bin/
 gen/
+build/
 *.idea
 *.iml
 .gradle
