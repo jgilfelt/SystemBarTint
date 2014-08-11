@@ -119,6 +119,11 @@ public class SystemBarTintManager {
             mNavBarAvailable = false;
         }
 
+        if (mConfig.isImmersiveMode(activity)) {
+            mStatusBarAvailable = false;
+            mNavBarAvailable = false;
+        }
+
         if (mStatusBarAvailable) {
             setupStatusBarView(activity, decorViewGroup);
         }
@@ -441,6 +446,18 @@ public class SystemBarTintManager {
             } else { // fallback
                 return !ViewConfiguration.get(context).hasPermanentMenuKey();
             }
+        }
+
+        private boolean isImmersiveMode(Activity activity) {
+            try {
+                int immersive = android.provider.Settings.System.getInt(activity.getContentResolver(), "immersive_mode");
+                if (immersive == 1) {
+                    return true;
+                }
+            } catch (Exception e) {
+            }
+
+            return false;
         }
 
         private int getInternalDimensionSize(Resources res, String key) {
