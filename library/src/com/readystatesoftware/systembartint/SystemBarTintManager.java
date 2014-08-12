@@ -119,6 +119,11 @@ public class SystemBarTintManager {
             mNavBarAvailable = false;
         }
 
+        if (mConfig.isImmersiveMode(activity) || mConfig.isHoverMode(activity)) {
+            mStatusBarAvailable = false;
+            mNavBarAvailable = false;
+        }
+
         if (mStatusBarAvailable) {
             setupStatusBarView(activity, decorViewGroup);
         }
@@ -360,6 +365,7 @@ public class SystemBarTintManager {
         private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
         private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
         private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
+        private static final int HOVER_INTENT_FLAG = 0x00002000;
 
         private final boolean mTranslucentStatusBar;
         private final boolean mTranslucentNavBar;
@@ -440,6 +446,26 @@ public class SystemBarTintManager {
                 return hasNav;
             } else { // fallback
                 return !ViewConfiguration.get(context).hasPermanentMenuKey();
+            }
+        }
+
+        private boolean isImmersiveMode(Activity activity) {
+            try {
+                int immersive = android.provider.Settings.System.getInt(activity.getContentResolver(), "immersive_mode");
+                if (immersive == 1) {
+                    return true;
+                }
+            } catch (Exception e) {
+            }
+
+            return false;
+        }
+
+        private boolean isHoverMode(Activity activity) {
+            if ((activity.getIntent().getFlags() & HOVER_INTENT_FLAG) != 0) {
+                return true;
+            } else {
+                return false;
             }
         }
 
