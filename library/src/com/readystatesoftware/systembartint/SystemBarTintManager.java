@@ -531,7 +531,7 @@ public class SystemBarTintManager {
          * @return The layout inset (in pixels).
          */
         public int getPixelInsetTop(boolean withActionBar) {
-            return (mTranslucentStatusBar ? mStatusBarHeight : 0) + (withActionBar ? mActionBarHeight : 0);
+            return mStatusBarHeight + (withActionBar ? mActionBarHeight : 0);
         }
 
         /**
