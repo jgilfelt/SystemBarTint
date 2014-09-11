@@ -100,6 +100,13 @@ public class SystemBarTintManager {
             } finally {
                 a.recycle();
             }
+            
+            // check system ui flags
+			int uiVis = activity.getWindow().getDecorView().getSystemUiVisibility();
+			int viewBits = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+			if ((uiVis & viewBits) != 0) {
+				mStatusBarAvailable = true;
+			}
 
             // check window flags
             WindowManager.LayoutParams winParams = win.getAttributes();
