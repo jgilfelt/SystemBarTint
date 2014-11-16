@@ -36,7 +36,7 @@ To provide custom tint color values or drawables:
 
 ```java
 // set a custom tint color for all system bars
-tintManager.setTintColor(Color.parseColor("#99000FF"));
+tintManager.setTintColor(Color.parseColor("#990000FF"));
 // set a custom navigation bar resource
 tintManager.setNavigationBarTintResource(R.drawable.my_tint);
 // set a custom status bar drawable
