@@ -87,7 +87,7 @@ public class SystemBarTintManager {
     public SystemBarTintManager(Activity activity) {
 
         Window win = activity.getWindow();
-        ViewGroup decorViewGroup = (ViewGroup) win.getDecorView();
+        ViewGroup decorViewGroup = (ViewGroup) win.getDecorView().findViewById(android.R.id.content);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // check theme attrs
